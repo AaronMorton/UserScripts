@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Fix Google Meet
 // @namespace    https://meet.google.com/*
-// @downloadURL  https://raw.githubusercontent.com/AaronMorton/UserScripts/main/FixGoogleMeet.js
+// @downloadURL  https://raw.githubusercontent.com/AaronMorton/UserScripts/main/FixGoogleMeet.user.js
 // @version      1.0
 // @description  Fix the google meet UI to be less bad. Change raise hand button to look less like clapping button. In future add better indicators when you're muted/unmuted/sharing screen, etc. Possibly provide downloads of meeting chats.
 // @author       Aaron Morton (aaronlmorton@gmail.com)
