@@ -2,7 +2,7 @@
 // @name         Fix Google Meet
 // @namespace    https://meet.google.com/*
 // @downloadURL  https://raw.githubusercontent.com/AaronMorton/UserScripts/main/FixGoogleMeet.user.js
-// @version      1.0
+// @version      1.1
 // @description  Fix the google meet UI to be less bad. Change raise hand button to look less like clapping button. In future add better indicators when you're muted/unmuted/sharing screen, etc. Possibly provide downloads of meeting chats.
 // @author       Aaron Morton (aaronlmorton@gmail.com)
 // @match        https://meet.google.com/*
@@ -13,12 +13,11 @@
 (function() {
     'use strict';
 
-    const dumbButtonSelector = "button[aria-label*='Raise hand'],button[aria-label*='Lower hand'";
-
     function logItOut(msg) {
         console.debug(`Fix Google Meet: ${msg}`);
     }
 
+    // given a node known to contain the hand raise svg, get rid of the hand icon and add in new text markup
     function fixDumbHandRaiseButton(node) {
         if (!node) {
             logItOut('No dumb hand raise button found');
@@ -44,8 +43,11 @@
     // Options for the observer (which mutations to observe)
     const config = { attributes: true, childList: true, subtree: true };
 
+    // Selector for the hand raise button
+    const dumbButtonSelector = "button[aria-label*='Raise hand'],button[aria-label*='Lower hand'";
+
     // Callback function to execute when mutations are observed
-    const callback = (mutationList, observer) => {
+    const mutationCallback = (mutationList, observer) => {
         for (const mutation of mutationList) {
             if (mutation.type === "childList") {
                 mutation.addedNodes.forEach((node) => {
@@ -81,10 +83,9 @@
         fixDumbHandRaiseButton(document.querySelector(dumbButtonSelector));
     });
 
-    // Create an observer instance linked to the callback function
-    const observer = new MutationObserver(callback);
-
-    // Start observing the target node for configured mutations
+    // Now that we've done our initial fixing, create an observer instance linked to the callback function
+    // don't want to trigger the mutation observer based on the changes hapening above
+    const observer = new MutationObserver(mutationCallback);
     observer.observe(targetNode, config);
 
 
