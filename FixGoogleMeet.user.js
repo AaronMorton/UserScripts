@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Fix Google Meet
-// @namespace    https://meet.google.com/*
+// @namespace    https://github.com/AaronMorton/UserScripts
 // @downloadURL  https://raw.githubusercontent.com/AaronMorton/UserScripts/main/FixGoogleMeet.user.js
-// @version      1.1
-// @description  Fix the google meet UI to be less bad. Change raise hand button to look less like clapping button. In future add better indicators when you're muted/unmuted/sharing screen, etc. Possibly provide downloads of meeting chats.
+// @updateURL    https://raw.githubusercontent.com/AaronMorton/UserScripts/main/FixGoogleMeet.user.js 
+// @version      1.2
+// @description  Fix the google meet UI to be less bad. Change raise hand button so it doesn't look like the clapping button.
 // @author       Aaron Morton (aaronlmorton@gmail.com)
 // @match        https://meet.google.com/*
 // @icon         https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-512dp/logo_meet_2020q4_color_1x_web_512dp.png
@@ -30,8 +31,8 @@
         if (!node.querySelector('#aarons-cool-markup')) {
             logItOut('Inserting Aaron\'s cool markup');
             const coolMarkup = document.createElement('div');
-            coolMarkup.innerText = "Raise / Lower Hand";
-            coolMarkup.setAttribute('style','display: inline-block; margin-left: -5px; width: 150%; height: 150%; overflow-wrap: anywhere;white-space: normal;font-size: 8px; overflow:hidden');
+            coolMarkup.innerText = "Raise/Lower Hand 🙋";
+            coolMarkup.setAttribute('style','text-wrap: auto; font-size: 8.5px');
             coolMarkup.id = "aarons-cool-markup";
             node.appendChild(coolMarkup);
         }
@@ -90,6 +91,7 @@
 
 
     /** NEW IN-PROGRESS BELOW **/
+    // In future add better indicators when you're muted/unmuted/sharing screen, etc. Possibly provide downloads of meeting chats.
 
 
     //turns out this is wrong and a random participant has the data-self-name attr
