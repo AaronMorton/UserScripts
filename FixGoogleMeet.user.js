@@ -3,7 +3,7 @@
 // @namespace    https://github.com/AaronMorton/UserScripts
 // @downloadURL  https://raw.githubusercontent.com/AaronMorton/UserScripts/main/FixGoogleMeet.user.js
 // @updateURL    https://raw.githubusercontent.com/AaronMorton/UserScripts/main/FixGoogleMeet.user.js 
-// @version      1.2
+// @version      1.3
 // @description  Fix the google meet UI to be less bad. Change raise hand button so it doesn't look like the clapping button.
 // @author       Aaron Morton (aaronlmorton@gmail.com)
 // @match        https://meet.google.com/*
@@ -24,8 +24,15 @@
             logItOut('No dumb hand raise button found');
             return
         }
+        // Removing all svg's even though that is no longer the way the hand is rendered, just to be resilient to 
+        // future changes to google meet's markup
         node.querySelectorAll('svg').forEach(match => {
             logItOut('match for dumb svg found!');
+            match.remove();
+        });
+        // as of 4.17.25, the hand raise image is now an icon element, so we destroy all icons
+        node.querySelectorAll('i').forEach(match => {
+            logItOut('match for dumb icon found');
             match.remove();
         });
         if (!node.querySelector('#aarons-cool-markup')) {
